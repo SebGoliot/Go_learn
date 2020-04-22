@@ -34,16 +34,16 @@ func returnLastArticle(w http.ResponseWriter, r *http.Request){
 
 func returnSingleArticle(w http.ResponseWriter, r *http.Request){
 	vars := mux.Vars(r)
-	key := vars["id"]
+	id := vars["id"]
 
 	for _, article := range Articles {
-        if article.Id == key {
+        if article.Id == id {
             json.NewEncoder(w).Encode(article)
         }
     }
 }
 
-func createNewArticle(w http.ResponseWriter, r *http.Request) {
+func createNewArticle(w http.ResponseWriter, r *http.Request){
 	reqBody, _ := ioutil.ReadAll(r.Body)
 	
 	var article Article
@@ -52,14 +52,27 @@ func createNewArticle(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(article)
 }
 
+func deleteArticle(w http.ResponseWriter, r *http.Request){
+	fmt.Println("Endpoint Hit: DELETE !!!")
+	vars := mux.Vars(r)
+	id := vars["id"]
+
+	for index, article := range Articles {
+		if article.Id == id{
+			Articles = append(Articles[:index], Articles[index+1:]...)
+		}
+	}
+}
+
 
 func handleRequests() {
 	router := mux.NewRouter().StrictSlash(true)
-	router.HandleFunc("/", helloWorld)
-	router.HandleFunc("/articles", returnAllArticles)
-	router.HandleFunc("/articles/last", returnLastArticle)
-	router.HandleFunc("/article/{id}", returnSingleArticle)
+	router.HandleFunc("/", helloWorld).Methods("GET")
 	router.HandleFunc("/article", createNewArticle).Methods("POST")
+	router.HandleFunc("/articles", returnAllArticles).Methods("GET")
+	router.HandleFunc("/articles/last", returnLastArticle).Methods("GET")
+	router.HandleFunc("/article/{id}", returnSingleArticle).Methods("GET")
+	router.HandleFunc("/article/{id}", deleteArticle).Methods("DELETE")
     log.Fatal(http.ListenAndServe(":5050", router))
 }
 
