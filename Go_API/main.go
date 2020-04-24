@@ -7,6 +7,9 @@ import (
 	"encoding/json"
 	"github.com/gorilla/mux"
 	"io/ioutil"
+    "go.mongodb.org/mongo-driver/bson"
+    "go.mongodb.org/mongo-driver/mongo"
+    "go.mongodb.org/mongo-driver/mongo/options"
 )
 
 type Article struct {
