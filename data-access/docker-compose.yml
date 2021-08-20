@@ -8,7 +8,9 @@ services:
     command: --default-authentication-plugin=mysql_native_password
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${DBPASS}
+      MYSQL_DATABASE: ${DBNAME}
     volumes: 
       - ./sql-entrypoint:/docker-entrypoint-initdb.d
+    ports:
+      - 3306:3306
