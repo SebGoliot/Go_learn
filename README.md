@@ -5,5 +5,5 @@ This repository's only purpose is to keep track of the Go learning projects I've
 - [x] https://golang.org/doc/tutorial/getting-started
 - [x] https://golang.org/doc/tutorial/create-module
 - [x] https://golang.org/doc/tutorial/web-service-gin
-- [ ] https://golang.org/doc/tutorial/database-access
+- [x] https://golang.org/doc/tutorial/database-access
 - [ ] https://golang.org/doc/articles/wiki/
